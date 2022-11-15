@@ -6,9 +6,18 @@ __pycache__/
 # C extensions
 *.so
 
+# database files
+*.db
+
 # Distribution / packaging
 .Python
+bin/
+src/
 build/
+Include/
+Scripts/
+CLD_datalogger/Include/
+PAG_varifier/.vscode/
 develop-eggs/
 dist/
 downloads/
@@ -26,9 +35,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-Scripts/
-include/
-pyvenv.cfg
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -112,6 +118,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pyvenv.cfg
 
 # Spyder project settings
 .spyderproject

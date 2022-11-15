@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!--Import my js for refreshing page data etc-->
+<script src="static/js/base.js"></script>  <!-- this will ping a route function and update page variables. more details are in different project, shown here so you know it's been done  -->
+<!--Import stylesheet-->
+<link rel="stylesheet" type="text/css" href="/static/styles/style.css">
+<h1>Extremely basic example page with auto variable updating</h1>
+<div class="sample">{{ template_variable }}</div>
+
+
+    {% for item in variables %}
+
+    <div>{{ item }}</div>
+    <div id="{{ item }}">0</div>
+
+    {% endfor %}
+    <div>Set Variable 1</div>
+    <input id ="input_variable_1"></input>
+
+
+</form>
+</body>
+{% endblock %}
