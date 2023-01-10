@@ -10,11 +10,20 @@ from datetime import datetime, timedelta
 from time import sleep
 import json
 import random
+import signal
 
 # The above are basics for the framework, db integration and a production wsgi server
 
 #--- Flask and SQLAlchemy configuration ---
 
+class GracefulKiller:
+  kill_now = False
+  def __init__(self):
+    signal.signal(signal.SIGINT, self.exit_gracefully)
+    signal.signal(signal.SIGTERM, self.exit_gracefully)
+
+  def exit_gracefully(self,signum, frame):
+    self.kill_now = True
 
 app = Flask(__name__)   # This tells the framework that we are using this app.py and initializes the framework
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'  # This is the db info. to use the mysql use 'mysql://u_TestCell:stayconnected@192.168.0.202/test' This is all that needs to change to switch to a different db
@@ -127,7 +136,8 @@ background.start()
 #--- Running the app --- you can run this with 'flask run' as a development option. Using 'python app.py' will run using the option below
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True)    # calls the flask development option with options to run on all available IPs in debug mode (this auto restarts when changes are detected)
-    #serve(app, port=5000) # This will run on a production wsgi server using waitress
+    app.run(host='127.0.0.1', port=6000, debug=True)    # calls the flask development option with options to run on all available IPs in debug mode (this auto restarts when changes are detected)
+    #serve(app, port=6000) # This will run on a production wsgi server using waitress
     #waitress is a decent production server for windows
     #gunicorn is a great option for linux
+    print('exiting')
